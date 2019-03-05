@@ -1,0 +1,230 @@
+<html>
+
+
+
+
+<body>
+
+
+
+
+
+    <script>
+        var data;
+        var f2 = true;
+        var ourRequest = new XMLHttpRequest();
+        ourRequest.open('GET', 'https://jsonplaceholder.typicode.com/posts', false);
+        ourRequest.onload = function () {
+            data = JSON.parse(ourRequest.responseText)
+            //console.log(Data)
+        }
+        ourRequest.send();
+        LoadTable();
+        var table;
+
+
+
+        function LoadTable() {
+             table = document.createElement("table");
+            table.setAttribute("id","mytable")
+        table.setAttribute("border",1);
+            var thead = document.createElement("thead");
+            var tablerowhead = document.createElement("tr");
+            var th = [];
+
+            var tablekeys = Object.keys(data[0]);
+            var tableHeadData = [];
+            tablekeys.map((element, index) => {
+                var id = "head" + index;
+                th[index] = document.createElement("th");
+                th[index].setAttribute("id", id)
+                tableHeadData[index] = document.createTextNode(element);
+                th[index].appendChild(tableHeadData[index])
+                tablerowhead.appendChild(th[index])
+
+
+            })
+
+
+            thead.appendChild(tablerowhead)
+
+            table.appendChild(thead);
+            var tbody = document.createElement("tbody");
+            var tr = [];
+
+            data.map((element, index) => {
+
+                tr[index] = document.createElement("tr")
+                let values = Object.values(element);
+                var td = [];
+                var ref = index;
+                values.map((ele, index) => {
+                    td[index] = document.createElement("td")
+                    tableHeadData = document.createTextNode(ele);
+                    td[index].appendChild(tableHeadData);
+                    tr[ref].appendChild(td[index]);
+                })
+
+                tbody.appendChild(tr[index])
+
+
+            })
+
+            table.appendChild(tbody);
+          
+            document.body.appendChild(table)
+
+
+
+          
+
+            document.getElementById("head0").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sort();
+                LoadTable();
+            })
+            document.getElementById("head1").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sort();
+                LoadTable();
+            })
+            document.getElementById("head2").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sortstring();
+                LoadTable();
+            })
+            document.getElementById("head3").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sortstr1();
+                LoadTable();
+            })
+
+
+
+
+        }
+
+        function sort() {
+            if (f2) {
+                data.sort(function (a, b) {
+                    var txtA = a.id ;
+                    var txtB = b.id;
+                    if (txtA < txtB)
+                        return -1
+                    if (txtA > txtB)
+                        return 1
+                    return 0;
+                })
+
+                f2 = false;
+
+            } else {
+                data.sort(function (a, b) {
+                    var txtA = a.id ;
+                    var txtB = b.id;
+                    if (txtA < txtB)
+                        return 1
+                    if (txtA > txtB)
+                        return -1
+                    return 0;
+                })
+
+                f2 = true;
+
+
+            }             
+
+        }
+        function sort1() {
+            if (f2) {
+                data.sort(function (a, b) {
+                    var txtA = a.userId ;
+                    var txtB = b.userId;
+                    if (txtA < txtB)
+                        return -1
+                    if (txtA > txtB)
+                        return 1
+                    return 0;
+                })
+
+                f2 = false;
+
+            } else {
+                data.sort(function (a, b) {
+                    var txtA = a.id ;
+                    var txtB = b.id;
+                    if (txtA < txtB)
+                        return 1
+                    if (txtA > txtB)
+                        return -1
+                    return 0;
+                })
+
+                f2 = true;
+            }
+             
+
+        }
+        function sortstring() {
+            if (f2) {
+                data.sort(function (a, b) {
+                    var txtA = a.title ;
+                    var txtB = b.title;
+                    if (txtA < txtB)
+                        return -1
+                    if (txtA > txtB)
+                        return 1
+                    return 0;
+                })
+
+                f2 = false;
+
+            } else {
+                data.sort(function (a, b) {
+                    var txtA = a.title;
+                    var txtB = b.title;
+                    if (txtA < txtB)
+                        return 1
+                    if (txtA > txtB)
+                        return -1
+                    return 0;
+                })
+
+                f2 = true;
+
+
+            }     
+
+        }
+        function sortstr1() {
+            if (f2) {
+                data.sort(function (a, b) {
+                    var txtA = a.body;
+                    var txtB = b.body;
+                    if (txtA < txtB)
+                        return -1
+                    if (txtA > txtB)
+                        return 1
+                    return 0;
+                })
+                f2 = false;
+            } else {
+                data.sort(function (a, b) {
+                    var txtA = a.body;
+                    var txtB = b.body;
+                    if (txtA < txtB)
+                        return 1
+                    if (txtA > txtB)
+                        return -1
+                    return 0;
+                })
+                f2 = true;
+
+            }
+             
+        }
+    </script>
+
+</body>
+
+</html>
